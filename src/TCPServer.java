@@ -11,15 +11,15 @@ public class TCPServer
 
 	public TCPServer() throws IOException 
 	{
-    	socket = null;
-    	server = new ServerSocket();
-    	userInput = null;
+    		socket = null;
+    		server = new ServerSocket();
+    		userInput = null;
 	}
 
 	public TCPServer(int port) throws IOException 
 	{
 		ServerSocket serverSocket = new ServerSocket(port);
-    	System.out.println("Server connecting. . . " + port);
+    		System.out.println("Server connecting. . . " + port);
 		System.out.println("Client waiting . . . ");
 
 		Socket clientSocket = serverSocket.accept();
@@ -37,10 +37,11 @@ public class TCPServer
     System.out.println("message shown: " + inputMessage);
 }
 //it was easier do try/catches but ofc this can be changed. basically just closing userInput, socket, and serverSocket//
-	System.out.println("connection ending. . .");
+
+System.out.println("connection ending. . .");
 	try 
-		{
-			if (userInput != null) 
+	{
+		if (userInput != null) 
 			{
 				userInput.close();
 			}
