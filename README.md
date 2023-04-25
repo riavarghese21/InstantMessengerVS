@@ -5,11 +5,8 @@ Server is able to display client’s status.
 
 Server will be listening on a port (say port# 3066) and Client will connect to Server.
 
-Client accepts command line parameter to set the number of concurrent file transfers. 
-For example, java Client 5 will transfer five files concurrently at any given time as long as there are enough files.  
-If concurrency number is not entered, it should transfer one file at a time (aka concurrency=1), by default.
 
-# Files
+# Files (in progress)
 1. Client.java: Client Application to make socket connection with the Server.
 2. Server.java: Server Application to accept socket connection from client. This can accept multiple connection.
 
