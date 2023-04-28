@@ -8,36 +8,37 @@ public class TCPClient
 	private DataOutputStream userOutput;
 
 	public Socket getSocket()
-    {
+	{
         return socket;
-    } 
+    	} 
     
-    public void setSocket(Socket socket) 
-    {
+    	public void setSocket(Socket socket) 
+    	{
         this.socket = socket;
-    }
+    	}
 
 	public BufferedReader getuserInput()
 	{
-		return userInput;
+	return userInput;
 	}
 
     public void setuserInput(BufferedReader userInput) 
     {
         this.userInput = userInput;
     }
-	public DataOutputStream getuserOutput()
-	{
+	
+    public DataOutputStream getuserOutput()
+    {
 		return userOutput;
-	}
+    }
  
     public void setuserOutput(DataOutputStream userOutput) 
     {
         this.userOutput= userOutput;
     }
 	
-	public TCPClient(String IP_Address, int portNumber) throws UnknownHostException, IOException 
-	{
+    public TCPClient(String IP_Address, int portNumber) throws UnknownHostException, IOException 
+    {
 		socket = new Socket(IP_Address, portNumber);
 		System.out.println("TCP Client / Server are connected ");
 		userInput = new BufferedReader(new InputStreamReader(System.in));
