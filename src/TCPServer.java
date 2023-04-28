@@ -3,20 +3,19 @@ import java.io.*;
 
 public class TCPServer 
 {
-	
 	private Socket socket = null;
 	private ServerSocket server;
 	private DataInputStream userInput;
 
 	public Socket getSocket()
-    {
-        return socket;
-    } 
+    	{
+        	return socket;
+    	} 
     
-    public void setSocket(Socket socket) 
-    {
-        this.socket = socket;
-    }
+    	public void setSocket(Socket socket) 
+   	 {
+        	this.socket = socket;
+    	}
 
 	public ServerSocket getServer() 
 	{
@@ -29,18 +28,19 @@ public class TCPServer
 	}
 
 	public DataInputStream getuserInput() 
-    {
+    	{
         return userInput;
-    }
+   	 }
 
-    public void setuserInput(DataInputStream userInput) 
-    {
+    	public void setuserInput(DataInputStream userInput) 
+   	 {
         this.userInput = userInput;
-    }
+    	}
 
     public TCPServer(int portNumber) 
 	{
-		try (ServerSocket server = new ServerSocket(portNumber)) {
+		try (ServerSocket server = new ServerSocket(portNumber)) 
+		{
 			System.out.println("Server connected! ");
 			System.out.println("Client waiting . . .");
 		
@@ -49,7 +49,8 @@ public class TCPServer
 				System.out.println("client accepting server connection. ");
 		
 				try (DataInputStream userInput = new DataInputStream(
-						new BufferedInputStream(socket.getInputStream()))) {
+						new BufferedInputStream(socket.getInputStream()))) 
+				{
 				String message;
 				while (true)
 				{
@@ -84,7 +85,8 @@ public class TCPServer
 			{
 				userInput.close();
 			}
-		} catch(IOException e) {
+		} catch(IOException e) 
+		{
 			System.out.println("closing connection error " + e.getMessage());
 		}
 	}
@@ -92,6 +94,6 @@ public class TCPServer
 	public static void main(String args[]) 
 	{
 			new TCPServer(3066);
-		}
+	}
 }
 
