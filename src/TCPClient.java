@@ -16,7 +16,7 @@ public class TCPClient
     	{
         this.socket = socket;
     	}
-
+        
 	public BufferedReader getuserInput()
 	{
 	return userInput;
@@ -37,8 +37,29 @@ public class TCPClient
         this.userOutput= userOutput;
     }
 	
+	//LOGIN
+	public boolean login() throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print("Enter username: ");
+		String username = reader.readLine();
+		System.out.print("Enter password: ");
+		String password = reader.readLine();
+
+		if (username.equals("client3306") && password.equals("computernetworks345")) {
+			System.out.println("Login successful!");
+			return true;
+		} else {
+			System.out.println("Invalid username or password.");
+			return false;
+		}
+	}
+	
     public TCPClient(String IP_Address, int portNumber) throws UnknownHostException, IOException 
     {
+		if(!login()){
+			System.exit(0);
+		}
+
 		socket = new Socket(IP_Address, portNumber);
 		InetAddress localHost = InetAddress.getLocalHost();
         	System.out.println("IP Address: " + localHost.getHostAddress());
@@ -86,6 +107,6 @@ public class TCPClient
 	//use your own ip address, and local host to make it work :) // 
 	public static void main(String args[]) throws UnknownHostException, IOException
 	{
-		new TCPClient("192.168.50.167", 3066);
+		new TCPClient("192.168.86.136", 3066);
 	}
 }
