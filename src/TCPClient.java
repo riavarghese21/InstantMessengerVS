@@ -40,11 +40,12 @@ public class TCPClient
     public TCPClient(String IP_Address, int portNumber) throws UnknownHostException, IOException 
     {
 		socket = new Socket(IP_Address, portNumber);
+		InetAddress localHost = InetAddress.getLocalHost();
+        	System.out.println("IP Address: " + localHost.getHostAddress());
 		System.out.println("TCP Client / Server are connected ");
 		userInput = new BufferedReader(new InputStreamReader(System.in));
 		userOutput = new DataOutputStream(socket.getOutputStream()); 
 		String message;
-		
 		while (true)
 		{
 			try 
