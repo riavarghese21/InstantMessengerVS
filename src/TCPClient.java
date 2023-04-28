@@ -88,4 +88,3 @@ public class TCPClient
 		new TCPClient("192.168.50.167", 3066);
 	}
 }
-	}
