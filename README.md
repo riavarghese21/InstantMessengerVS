@@ -11,7 +11,7 @@ Server will be listening on a port (say port# 3066) and Client will connect to S
 2. Server.java: Server Application to accept socket connection from client. This can accept multiple connection.
 
 # Generating Test Data 
-1. Install Java -VSCode
+1. Install Java
 2. (*not sure how to run both applications, only shows that it is functional -> as in being connected only*)
  
  # Running the program
