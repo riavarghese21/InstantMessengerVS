@@ -29,12 +29,12 @@ public class TCPServer
 
 	public DataInputStream getuserInput() 
     	{
-        return userInput;
+        	return userInput;
    	 }
 
     	public void setuserInput(DataInputStream userInput) 
    	 {
-        this.userInput = userInput;
+        	this.userInput = userInput;
     	}
 
     public TCPServer(int portNumber) 
