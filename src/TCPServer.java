@@ -1,82 +1,110 @@
 import java.net.*;
 import java.io.*;
 
-public class TCPServer
+public class TCPServer 
 {
-	private final Socket socket;
-	private final ServerSocket server;
-	private final DataInputStream userInput;
-	this.port = port;
+	private Socket socket = null;
+	private ServerSocket server;
+	private DataInputStream userInput;
 
+	public Socket getSocket()
+    	{
+        	return socket;
+    	} 
+    
+    	public void setSocket(Socket socket) 
+   	 {
+        	this.socket = socket;
+    	}
 
-	public TCPServer() throws IOException 
+	public ServerSocket getServer() 
 	{
-    		socket = null;
-    		server = new ServerSocket();
-    		userInput = null;
+		return server;
 	}
 
-	public TCPServer(int port) throws IOException 
+	public void setServer(ServerSocket server) 
 	{
-		ServerSocket serverSocket = new ServerSocket(port);
-    		System.out.println("Server connecting. . . " + port);
-		System.out.println("Client waiting . . . ");
+		this.server = server;
+	}
 
-		Socket clientSocket = serverSocket.accept();
-		System.out.println("Client connected from " + clientSocket.getInetAddress().getHostAddress());
-	
-		DataInputStream userInput = new DataInputStream(clientSocket.getInputStream());
-		String inputMessage;
+	public DataInputStream getuserInput() 
+    	{
+        	return userInput;
+   	 }
 
-		while ((inputMessage = userInput.readUTF()) != null)
-		 {
-   			 if (inputMessage.equals("terminate")) 
-			 {
-       		break;
+    	public void setuserInput(DataInputStream userInput) 
+   	 {
+        	this.userInput = userInput;
     	}
-    System.out.println("message shown: " + inputMessage);
-}
-//it was easier do try/catches but ofc this can be changed. basically just closing userInput, socket, and serverSocket//
 
-System.out.println("connection ending. . .");
-	try 
+    public TCPServer(int portNumber) 
 	{
-		if (userInput != null) 
+		try (ServerSocket server = new ServerSocket(portNumber)) 
+		{
+			System.out.println("Server connected! ");
+			System.out.println("Client waiting . . .");
+		
+			try (Socket socket = server.accept())
+			{
+				System.out.println("client accepting server connection. ");
+		
+				try (DataInputStream userInput = new DataInputStream(
+						new BufferedInputStream(socket.getInputStream()))) 
+				{
+				String message;
+				while (true)
+				{
+					try 
+					{
+						message = userInput.readUTF();
+						if (message.equals("terminate")) 
+						{
+							break;
+						}
+						System.out.println(message);
+						} catch (IOException e) 
+						{
+							System.out.println("input error : " + e.getMessage());
+									break;
+						}
+					}
+				}
+			} catch (IOException e) {
+				System.out.println("could not configure client server. : " + e.getMessage());
+			}
+		} catch (IOException e) 
+		{
+			System.out.println("error occurred when starting server! : " + e.getMessage());
+		}
+		try {
+			if (socket != null) 
+			{
+				socket.close();
+			}
+			if (userInput != null) 
 			{
 				userInput.close();
 			}
-		} catch (IOException e) 
+		} catch(IOException e) 
 		{
-			System.out.println("There is an error, ending the DataInputStream! : " + e.getMessage());
-		}
-		
-		try {
-			if (socket != null)
-			 {
-				socket.close();
-			}
-		} catch (IOException e) 
-		{
-			System.out.println("There is an error, ending Socket! " + e.getMessage());
-		}
-		
-		try {
-			if (serverSocket != null) 
-			{
-				serverSocket.close();
-			}
-		} catch (IOException e) {
-			System.out.println("There is an error, ending Server! " + e.getMessage());
+			System.out.println("closing connection error " + e.getMessage());
 		}
 	}
-//local host: 3306//
-	public static void main(String[] args)
-	{
-		try {
-			TCPServer server = new TCPServer(3306);
-		} catch (IOException e) 
-		{
-			System.out.println("There is an error, ending TCPServer Program! " + e.getMessage());
+
+	public void receiveFile(String filePath) throws IOException {
+		File file = new File(filePath);
+		FileOutputStream fileOutputStream = new FileOutputStream(file);
+		byte[] buffer = new byte[4096];
+		int bytesRead = -1;
+		while ((bytesRead = userInput.read(buffer)) != -1) {
+		  fileOutputStream.write(buffer, 0, bytesRead);
 		}
+		fileOutputStream.close();
+	  }
+
+	//local host: 3066//
+	public static void main(String args[]) 
+	{
+			new TCPServer(3066);
 	}
 }

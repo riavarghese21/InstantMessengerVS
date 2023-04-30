@@ -2,6 +2,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Client2",
+            "request": "launch",
+            "mainClass": "Client2",
+            "projectName": "InstantMessengerVS_e97e08b8"
+        },
+        {
+            "type": "java",
+            "name": "Client1",
+            "request": "launch",
+            "mainClass": "Client1",
+            "projectName": "InstantMessengerVS_e97e08b8"
+        },
+        {
+            "type": "java",
+            "name": "TCPClient",
+            "request": "launch",
+            "mainClass": "TCPClient",
+            "projectName": "InstantMessengerVS_e97e08b8"
+        },
+        {
+            "type": "java",
+            "name": "TCPClient2",
+            "request": "launch",
+            "mainClass": "TCPClient2",
+            "projectName": "InstantMessengerVS_e97e08b8"
+        },
+        {
+            "type": "java",
+            "name": "TCPServer",
+            "request": "launch",
+            "mainClass": "TCPServer",
+            "projectName": "InstantMessengerVS_e97e08b8"
+        },
+        {
+            "type": "java",
             "name": "Launch Java Program",
             "request": "launch",
             "mainClass": ""

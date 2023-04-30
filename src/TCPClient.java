@@ -3,73 +3,110 @@ import java.io.*;
 
 public class TCPClient 
 {
+	private Socket socket = null;
+	private BufferedReader userInput;
+	private DataOutputStream userOutput;
 
-	private final Socket socket;
-	private final BufferedReader input;
-	private final DataOutputStream output;
-	this.port = port;
-
-	public TCPClient() 
+	public Socket getSocket()
 	{
-   		socket = null;
-   		input = null;
-   		output = null;
+        return socket;
+    	} 
+    
+    	public void setSocket(Socket socket) 
+    	{
+        this.socket = socket;
+    	}
+        
+	public BufferedReader getuserInput()
+	{
+	return userInput;
 	}
 
-	public TCPClient(String IP_address, int port) throws IOException 
-	{
-		socket = new Socket(IP_address, port);
-		System.out.println("connected ^^ ");
-		try (BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-			 DataOutputStream out = new DataOutputStream(socket.getOutputStream())) 
-			 {
-		} catch (UnknownHostException u) 
-		{
-			throw new ConnectException("can't connect to local host: " + u.getMessage());
-		} catch (IOException i) 
-		{
-			throw new ConnectException("IO error : " + i.getMessage());
+    public void setuserInput(BufferedReader userInput) 
+    {
+        this.userInput = userInput;
+    }
+	
+    public DataOutputStream getuserOutput()
+    {
+		return userOutput;
+    }
+ 
+    public void setuserOutput(DataOutputStream userOutput) 
+    {
+        this.userOutput= userOutput;
+    }
+	
+	//LOGIN
+	public boolean login() throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print("Enter username: ");
+		String username = reader.readLine();
+		System.out.print("Enter password: ");
+		String password = reader.readLine();
+
+		if (username.equals("client3306") && password.equals("computernetworks345")) {
+			System.out.println("Login successful!");
+			return true;
+		} else {
+			System.out.println("Invalid username or password.");
+			return false;
+		}
+	}
+	
+    public TCPClient(String IP_Address, int portNumber) throws UnknownHostException, IOException 
+    {
+		if(!login()){
+			System.exit(0);
 		}
 
-		String inputMessage = "";
-		try {
-			while (!inputMessage.equals("terminate")) 
-			{
-				inputMessage= input.readLine();
-				output.writeUTF(inputMessage);
-			}
-		} catch (IOException i)
-		{
-			throw new RuntimeException("IO error: ", i); //undetermined data error//
-		} finally 
+		socket = new Socket(IP_Address, portNumber);
+		InetAddress localHost = InetAddress.getLocalHost();
+        	System.out.println("IP Address: " + localHost.getHostAddress());
+		System.out.println("TCP Client / Server are connected ");
+		userInput = new BufferedReader(new InputStreamReader(System.in));
+		userOutput = new DataOutputStream(socket.getOutputStream()); 
+		String message;
+		while (true)
 		{
 			try 
-			{
-				if (input != null) 
 				{
-					input.close(); //it was easier do try/catches but ofc this can be changed. basically just closing userInput, socket, and serverSocket//
-				}
-				if (output != null)
-				 {
-					output.close();
-				}
-				if (socket != null) 
+					message = userInput.readLine();
+					if (message.equals("terminate")) 
+					{
+						break;
+					}
+					System.out.println(message);
+				 }
+				catch (IOException e) 
 				{
-					socket.close();
+					System.out.println("input error : " + e.getMessage());
+					break;
 				}
-			} catch (IOException e) 
-			{
-				System.out.println("closing error " + e.getMessage());
-			}
+				try 
+				{
+					if (userInput != null) 
+					{
+						userInput.close();
+					}
+					if (userOutput != null) 
+					{
+						userOutput.close();
+					}
+					if (socket != null) 
+					{
+						socket.close();
+					}
+				} 
+				catch(IOException e) 
+				{
+					System.out.println("closing connection error " + e.getMessage());
+				}
 		}
 	}
-	public static void main(String args[])
+	//use your own ip address, and local host to make it work :) // 
+	public static void main(String args[]) throws UnknownHostException, IOException
 	{
-		try {
-			TCPClient client = new TCPClient("192.168.50.167", 3306);
-
-		} catch (ConnectException e) {
-			System.err.println("There is an error, ending TCPClient Program! " + e.getMessage());
-		} 
-		}
+		new TCPClient("192.168.86.136", 3066);
 	}
+}
