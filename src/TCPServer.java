@@ -90,10 +90,21 @@ public class TCPServer
 			System.out.println("closing connection error " + e.getMessage());
 		}
 	}
+
+	public void receiveFile(String filePath) throws IOException {
+		File file = new File(filePath);
+		FileOutputStream fileOutputStream = new FileOutputStream(file);
+		byte[] buffer = new byte[4096];
+		int bytesRead = -1;
+		while ((bytesRead = userInput.read(buffer)) != -1) {
+		  fileOutputStream.write(buffer, 0, bytesRead);
+		}
+		fileOutputStream.close();
+	  }
+
 	//local host: 3066//
 	public static void main(String args[]) 
 	{
 			new TCPServer(3066);
 	}
 }
-
