@@ -4,26 +4,29 @@ package UDP;
 import java.net.*;
 import java.io.*;
 
+
 public class ClientFileUDP 
-{
+{ 
     private static final int BUFFER_SIZE = 2024;
     public static void main(String args []) throws Exception
     {
-        byte[] byteNum = new byte[500]; 
+        byte[] byteNum = new byte[500];
 
-        FileInputStream f = new FileInputStream("/Users/amnakhwaja/InstantMessengerVS/UDP.txt");
-        System.out.println("UDP File Transfer Successful "); 
+         FileInputStream f = new FileInputStream("/Users/amnakhwaja/InstantMessengerVS/UDP.txt");
+         System.out.println("UDP File Transfer Successful "); 
 
-    
+        //created DatagramSocket object to send : receive data //
         try (DatagramSocket DataSocket = new DatagramSocket(3066)) 
         {
         }
         int i = 0;  byte[] buffer = new byte [BUFFER_SIZE];
+         //Reading data from files by applying BUFFER_SIZE bytes : storing them in the byte array buffer //
         while (true) {
             final int bytesRead = f.read(buffer, 0, BUFFER_SIZE);
             if (bytesRead == -1) {
                 break;
             }
+        //Copying the data from the buffer array to the byteNum array at position [i] // 
             System.arraycopy(buffer, 0, byteNum, i, bytesRead);
             i += bytesRead;
         }
