@@ -86,6 +86,6 @@ public class TCPClient
 	//use your own ip address, and local host to make it work :) // 
 	public static void main(String args[]) throws UnknownHostException, IOException
 	{
-		new TCPClient("192.168.50.167", 3066);
+		new TCPClient("127.0.0.1", 3066);
 	}
 }
