@@ -49,24 +49,6 @@ public class Client {
             e.printStackTrace();
         }
     }
-    
-    // LOGIN
-    public boolean login() throws IOException 
-    {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Enter username: ");
-        String username = reader.readLine();
-        System.out.print("Enter password: ");
-        String password = reader.readLine();
-
-        if (username.equals("client1") && password.equals("password1")) {
-            System.out.println("Login successful!");
-            return true;
-        } else {
-            System.out.println("Invalid username or password.");
-            return false;
-        }
-    }
     public static void main(String[] args) {
         Client client = new Client("127.0.0.1", 3066);
         client.connect();
