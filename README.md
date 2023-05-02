@@ -6,13 +6,12 @@ Server is able to display client’s status.
 Server will be listening on a port (say port# 3066) and Client will connect to Server.
 
 
-# Files (in progress)
+# Files 
 1. Client.java: Client Application to make socket connection with the Server.
 2. Server.java: Server Application to accept socket connection from client. This can accept multiple connection.
 
 # Generating Test Data 
 1. Install Java
-2. (*not sure how to run both applications, only shows that it is functional -> as in being connected only*)
  
  # Running the program
  1. Go to terminal, type `java Server`. This will run Server, which will accept connections from the client.
