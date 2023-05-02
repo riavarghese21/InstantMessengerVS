@@ -15,7 +15,23 @@ public class Client {
         this.ipAddress = ipAddress;
         this.port = port;
     }
+    
+    public boolean login() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Enter username: ");
+        String username = reader.readLine();
+        System.out.print("Enter password: ");
+        String password = reader.readLine();
 
+        if (username.equals("client") && password.equals("password")) {
+            System.out.println("Login successful!");
+            return true;
+        } else {
+            System.out.println("Invalid username or password.");
+            return false;
+        }
+    }
+    
     public void connect() {
         try(Socket socket = new Socket(this.ipAddress, this.port)) {
             System.out.println("Connected!");
@@ -51,7 +67,14 @@ public class Client {
     }
     public static void main(String[] args) {
         Client client = new Client("127.0.0.1", 3066);
-        client.connect();
+        try{
+            if(client.login()){
+                client.connect();
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        
     }
 }
 
