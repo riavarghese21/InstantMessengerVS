@@ -2,7 +2,6 @@ package UDP;
 
 //demo. UDP file transfer // 
 import java.net.*;
-import java.util.Scanner;
 import java.io.*;
 
 public class ClientFileUDP 
@@ -10,10 +9,10 @@ public class ClientFileUDP
     private static final int BUFFER_SIZE = 2024;
     public static void main(String args []) throws Exception
     {
-        byte[] byteNum = new byte[500]; Scanner fileIn= new Scanner(new File("/Users/amnakhwaja/InstantMessengerVS/UDP.txt"));
+        byte[] byteNum = new byte[500]; 
 
         FileInputStream f = new FileInputStream("/Users/amnakhwaja/InstantMessengerVS/UDP.txt");
-        System.out.println("Server is SHOT"); //change later//
+        System.out.println("UDP File Transfer Successful "); 
 
     
         try (DatagramSocket DataSocket = new DatagramSocket(3066)) 
